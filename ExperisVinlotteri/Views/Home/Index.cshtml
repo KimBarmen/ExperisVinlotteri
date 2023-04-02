@@ -1,9 +1,128 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model ListOfUsers
+
+@{
+    ViewData["Title"] = "Deltagere";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Welkommen til Experis vinlotteri!</h1>
+    <p> <a href="https://docs.microsoft.com/aspnet/core"> Regler og annen info her </a>  </p>
 </div>
 
+<br />
+<h3>
+    Ny deltager
+</h3>
+
+<div class="newPick" style="padding:20px">
+
+    <input id="input-name" placeholder="Navn" \>
+    <input id="input-pick" placeholder="Tall (Valgfritt)" \>
+    <button onclick=JsPostNewPick()> Send inn </button>
+
+</div>
+
+@if (Model != null && Model.Users.Any())
+{
+    <h3>
+        Reggistrerte deltagere
+    </h3>
+    <table class="styled-table">
+        <thead>
+        <tr>
+            <th> Navn </th>
+            <th> Nummer</th>
+        </tr>
+        </thead>
+        <tbody>
+            @foreach (UserDto user in Model.Users)
+            {
+                <tr>
+                    <td>
+                        <label> @user.Name </label>
+                    </td>
+                    <td>
+                        <label> @user.SelectedNumber </label>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+<script>
+
+    function JsPostNewPick() {
+
+        name = document.getElementById("input-name").value;
+        pick = document.getElementById("input-pick").value;
+
+        $.ajax({
+            url: "/Home/PostNewPick",
+            data: {
+                "name": name,
+                "selectedNumber": pick
+            },
+            cache: false,
+            type: "POST",
+            success: function (response) {
+
+            },
+            error: function (xhr) {
+
+            }
+        });
+
+    }
+
+
+
+</script>
+
+
+<style>
+
+    .styled-table {
+        border-collapse: collapse;
+        margin: 25px 0;
+        font-size: 0.9em;
+        font-family: sans-serif;
+        min-width: 400px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    }
+
+        .styled-table thead tr {
+            background-color: #009879;
+            color: #ffffff;
+            text-align: left;
+        }
+
+        .styled-table th,
+        .styled-table td {
+            padding: 12px 15px;
+        }
+
+        .styled-table tbody tr {
+            border-bottom: 1px solid #dddddd;
+        }
+
+            .styled-table tbody tr:nth-of-type(even) {
+                background-color: #f3f3f3;
+            }
+
+            .styled-table tbody tr:last-of-type {
+                border-bottom: 2px solid #009879;
+            }
+
+            .styled-table tbody tr.active-row {
+                font-weight: bold;
+                color: #009879;
+            }
+
+
+
+</style>
