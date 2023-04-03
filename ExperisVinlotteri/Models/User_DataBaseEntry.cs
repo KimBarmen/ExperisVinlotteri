@@ -22,7 +22,7 @@ namespace ExperisVinlotteri.Models
 
         public string GUID { get; set; }
         public string? Name { get; set; }
-        public int? SelectedNumber { get; set; }
+        public int SelectedNumber { get; set; }
 
         // Interface Properties
         

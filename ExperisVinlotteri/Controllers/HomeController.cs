@@ -24,20 +24,33 @@ public class HomeController : Controller
         if (usersFromDb.Any())
         {
             var vm = new ListOfUsers(
-                usersFromDb.Select( o => new UserDto(o.GUID,o.Name?? "N/A",o.SelectedNumber.GetValueOrDefault()) )
+                usersFromDb.Select( o => new UserDto(o.GUID,o.Name?? "N/A",o.SelectedNumber) )
                 );
             return View(vm);
         }
-
-
-       
-
 
         return View();
     }
 
 
-    public ActionResult<bool> PostNewPick(string name, int selectedNumber)
+    private async Task<bool> NumberIsAvalible(int num)
+    {
+        var usersFromDb = await _storageService.GetAllAsync();
+
+        if (usersFromDb.Any())
+        {
+            return !usersFromDb.Any(o => o.SelectedNumber == num);
+
+
+
+
+        }
+        return true;
+    }
+
+    
+
+    public async Task<ActionResult<string>> PostNewPick(string name, int selectedNumber)
     {
         User_DataBaseEntry newUser = new User_DataBaseEntry( Guid.NewGuid().ToString() )
         {
@@ -45,9 +58,17 @@ public class HomeController : Controller
             SelectedNumber = selectedNumber
         };
 
+        if (! await NumberIsAvalible(newUser.SelectedNumber)) {
+
+            return "Tallet er i bruk";
+        }
+
         var createdEntity = _storageService.UpsertEntityAsync(newUser);
 
-        return createdEntity != null; 
+        if (createdEntity != null)
+            return "Bruker reggistrert";
+        else
+            throw new Exception("Failed to save changes to db");
     }
 
     public IActionResult TrekkVinner()

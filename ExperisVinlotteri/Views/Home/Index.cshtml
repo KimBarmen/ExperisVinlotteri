@@ -6,7 +6,7 @@
 
 <div class="text-center">
     <h1 class="display-4">Welkommen til Experis vinlotteri!</h1>
-    <p> <a href="https://docs.microsoft.com/aspnet/core"> Regler og annen info her </a>  </p>
+    <p> <a href="https://www.experis.com/"> Regler og annen info her </a>  </p>
 </div>
 
 <br />
@@ -19,6 +19,8 @@
     <input id="input-name" placeholder="Navn" \>
     <input id="input-pick" placeholder="Tall (Valgfritt)" \>
     <button onclick=JsPostNewPick()> Send inn </button>
+    <label style="min-width:200px" id="output-status"></label>
+
 
 </div>
 
@@ -50,8 +52,6 @@
     </table>
 }
 
-
-
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
 <script>
@@ -69,8 +69,10 @@
             },
             cache: false,
             type: "POST",
-            success: function (response) {
-
+            success: function (response)
+            {
+                document.getElementById("output-status").innerHTML = response;
+                window.location.reload();
             },
             error: function (xhr) {
 
@@ -96,7 +98,7 @@
     }
 
         .styled-table thead tr {
-            background-color: #009879;
+            background-color: rgb(37,69,124);
             color: #ffffff;
             text-align: left;
         }
@@ -115,7 +117,7 @@
             }
 
             .styled-table tbody tr:last-of-type {
-                border-bottom: 2px solid #009879;
+                border-bottom: 2px solid rgb(179,67,4);
             }
 
             .styled-table tbody tr.active-row {

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - ExperisVinlotteri</title>
+    <title>@ViewData["Title"] - Experis Vinlotteri</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ExperisVinlotteri.styles.css" asp-append-version="true" />
@@ -20,11 +20,17 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Deltagere</a>
+                            <div style="border-left: 4px solid rgb(179,67,4)">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Deltagere</a>
+                            </div>
                         </li>
+                        
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="TrekkVinner">Trekk Vinner</a>
+                            <div style="border-left: 4px solid rgb(37,69,124)">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="TrekkVinner">Trekk Vinner</a>
+                            </div>
                         </li>
+                       
                     </ul>
                 </div>
             </div>
@@ -38,7 +44,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2023 - ExperisVinlotteri - <a asp-area="" asp-controller="Home" asp-action="TrekkVinner"> Trekk Vinner</a>
+            &copy; 2023 - Kim Gundersen - ExperisVinlotteri
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
