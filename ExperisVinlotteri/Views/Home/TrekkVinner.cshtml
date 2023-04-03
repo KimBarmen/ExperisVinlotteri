@@ -1,7 +1,17 @@
-﻿@{
-    ViewData["Title"] = "Trekk vinner";
-}
-<h1>@ViewData["Title"]</h1>
+﻿
 
-<p>Use this page to detail your site's privacy policy.</p>
+@{
+    ViewData["Title"] = "Trekk vinner";
+    int Count = (int) ViewData["Count"];
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welkommen til Experis vinlotteri!</h1>
+    <h3> Det er @Count reggistrerte deltagere   </h3>
+</div>
+
+
+
+
+
 

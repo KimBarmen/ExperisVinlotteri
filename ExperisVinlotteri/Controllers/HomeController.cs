@@ -33,6 +33,11 @@ public class HomeController : Controller
     }
 
 
+    /// <summary>
+    /// Checks if a number is in use,
+    /// </summary>
+    /// <param name="num">Number to check </param>
+    /// <returns> bool: true if number is not in use</returns>
     private async Task<bool> NumberIsAvalible(int num)
     {
         var usersFromDb = await _storageService.GetAllAsync();
@@ -40,10 +45,6 @@ public class HomeController : Controller
         if (usersFromDb.Any())
         {
             return !usersFromDb.Any(o => o.SelectedNumber == num);
-
-
-
-
         }
         return true;
     }
@@ -52,6 +53,12 @@ public class HomeController : Controller
 
     public async Task<ActionResult<string>> PostNewPick(string name, int selectedNumber)
     {
+        if (name is null || name.Length < 1)
+        {
+            return "Navn mangler";
+        }
+
+
         User_DataBaseEntry newUser = new User_DataBaseEntry( Guid.NewGuid().ToString() )
         {
             Name = name,
@@ -71,10 +78,27 @@ public class HomeController : Controller
             throw new Exception("Failed to save changes to db");
     }
 
-    public IActionResult TrekkVinner()
+
+
+
+
+    public async Task<IActionResult> TrekkVinner()
     {
-        return View();
+
+        var usersFromDb = await _storageService.GetAllAsync();
+        var v = View();
+        v.ViewData["Count"] = usersFromDb.Count();
+
+        return v;
     }
+
+
+    public async Task<ActionResult<string>> PickWinners()
+    {
+        var usersFromDb = await _storageService.GetAllAsync();
+        return null;
+    }
+
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()

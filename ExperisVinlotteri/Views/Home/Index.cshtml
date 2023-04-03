@@ -17,7 +17,7 @@
 <div class="newPick" style="padding:20px">
 
     <input id="input-name" placeholder="Navn" \>
-    <input id="input-pick" placeholder="Tall (Valgfritt)" \>
+    <input id="input-pick" placeholder="Tall (Valgfritt)" type="number" min="0" max="100"\>
     <button onclick=JsPostNewPick()> Send inn </button>
     <label style="min-width:200px" id="output-status"></label>
 
@@ -87,6 +87,11 @@
 
 
 <style>
+
+    #input-pick {
+        min-width:100px;
+
+    }
 
     .styled-table {
         border-collapse: collapse;
